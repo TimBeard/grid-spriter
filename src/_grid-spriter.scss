@@ -1,0 +1,45 @@
+// Helper function to compute relative position of a given cell on any axis
+@function onAxis($l, $x) {
+  @return if($l > 1, ((1 / ($l - 1)) * $x) * 100%, 0);
+}
+
+// Helper function to compute relative coordinates of a given cell within a grid
+@function inGrid($i, $w, $h) {
+
+  $x: onAxis($w, $i % $w);
+  $y: onAxis($h, floor($i / $w));
+
+  @return $x $y;
+}
+
+// Main mixin that will output the main class and all icon subclasses
+@mixin gridSpriter($src, $col, $row, $def: null, $mode: 'mask') {
+
+  @if $mode != 'mask' and $mode != 'background' {
+    @warn 'gridSpriter mode is set to #{$mode}. Should be either "mask" or "background". Unexpected behavior could occur.';
+  }
+
+  $relWidth: $col * 100%;
+  $nbrCells: $col * $row;
+
+  &:not(.bfr):not(.aft),
+  &.bfr::before,
+  &.aft::after {
+    #{$mode}-image: url($src);
+    #{$mode}-size: $relWidth auto;
+  }
+
+  @for $key from 0 through $nbrCells - 1 {
+
+    @if $def == null or map-has-key($def, $key) {
+
+      $val: if($def != null, map-get($def, $key), $key);
+
+      &:not(.bfr):not(.aft)[data-icon="#{$val}"],
+      &.bfr[data-icon="#{$val}"]::before,
+      &.aft[data-icon="#{$val}"]::after {
+        #{$mode}-position: inGrid($key, $col, $row);
+      }
+    }
+  }
+}

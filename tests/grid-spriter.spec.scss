@@ -1,0 +1,111 @@
+@import 'true';
+@import '../src/grid-spriter';
+
+$defs: (1: 'facebook', 3: 'instagram', 7: 'github');
+
+@include describe('onAxis()') {
+
+  @include it('Should output 0% when searching for the frist cell of any axis') {
+    @include assert-equal(onAxis(1337, 0), 0%)
+  }
+
+  @include it('Should output 25% when seearching for the second cell of a 5 cells axis') {
+    @include assert-equal(onAxis(5, 1), 25%)
+  }
+}
+
+@include describe('inGrid()') {
+
+  @include it('Should output 0% 0% when searching for the first cell of any grid') {
+    @include assert-equal(inGrid(0, 1024, 768), 0% 0%)
+  }
+
+  @include it('Should output 25% 100% when searching for the seventh cell of a 5*2 grid') {
+    @include assert-equal(inGrid(6, 5, 2), 25% 100%)
+  }
+}
+
+@include describe('gridSpriter()') {
+
+  @include it('Should output the right definitions for every configured class if a map is provided') {
+
+    @include assert {
+
+      @include output {
+
+        .has-icon {
+          @include gridSpriter('../images/icons/generic.svg', 5, 2, $defs);
+        }
+      }
+
+      @include expect {
+
+        .has-icon:not(.bfr):not(.aft),
+        .has-icon.bfr::before,
+        .has-icon.aft::after {
+          mask-image: url("../images/icons/generic.svg");
+          mask-size : 500% auto;
+        }
+
+        .has-icon:not(.bfr):not(.aft)[data-icon=facebook],
+        .has-icon.bfr[data-icon=facebook]::before,
+        .has-icon.aft[data-icon=facebook]::after {
+          mask-position: 25% 0%;
+        }
+
+        .has-icon:not(.bfr):not(.aft)[data-icon=instagram],
+        .has-icon.bfr[data-icon=instagram]::before,
+        .has-icon.aft[data-icon=instagram]::after {
+          mask-position: 75% 0%;
+        }
+
+        .has-icon:not(.bfr):not(.aft)[data-icon=github],
+        .has-icon.bfr[data-icon=github]::before,
+        .has-icon.aft[data-icon=github]::after {
+          mask-position: 50% 100%;
+        }
+      }
+    }
+  }
+
+  @include it('Should output the right definitions for every icon if no map is provided') {
+
+    @include assert {
+
+      @include output {
+
+        .has-icon {
+          @include gridSpriter('../images/icons/generic.svg', 3, 1);
+        }
+      }
+
+      @include expect {
+
+        .has-icon:not(.bfr):not(.aft),
+        .has-icon.bfr::before,
+        .has-icon.aft::after {
+          mask-image: url("../images/icons/generic.svg");
+          mask-size : 300% auto;
+        }
+
+        .has-icon:not(.bfr):not(.aft)[data-icon="0"],
+        .has-icon.bfr[data-icon="0"]::before,
+        .has-icon.aft[data-icon="0"]::after {
+          mask-position: 0% 0;
+        }
+
+        .has-icon:not(.bfr):not(.aft)[data-icon="1"],
+        .has-icon.bfr[data-icon="1"]::before,
+        .has-icon.aft[data-icon="1"]::after {
+          mask-position: 50% 0;
+        }
+
+        .has-icon:not(.bfr):not(.aft)[data-icon="2"],
+        .has-icon.bfr[data-icon="2"]::before,
+        .has-icon.aft[data-icon="2"]::after {
+          mask-position: 100% 0;
+        }
+      }
+    }
+  }
+}
