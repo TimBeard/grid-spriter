@@ -16,13 +16,13 @@ $classes: (1: 'isOk', 3: 'isWarn', 7: 'isError');
 // Create the classes using the mixin. Icons as mask-image won't be available in older browsers but the color of the icon can be configured
 .has-status-icon-mask {
   // generic.svg is a 7*4 grid
-  @include gridSpriter('../images/icons/generic.svg', 7, 4, $classes);
+  @include GridSpriter('../images/icons/generic.svg', 7, 4, $classes);
 }
 
 // Create the classes using the mixin. Icons as background-image has better compatibility
 .has-status-icon-background {
   // generic.svg is a 7*4 grid
-  @include gridSpriter('../images/icons/generic.svg', 7, 4, $classes, 'background');
+  @include GridSpriter('../images/icons/generic.svg', 7, 4, $classes, 'background');
 }
 
 // Setup pseudo-elements

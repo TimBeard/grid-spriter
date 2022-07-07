@@ -34,7 +34,7 @@ $defs: (1: 'facebook', 3: 'instagram', 7: 'github');
       @include output {
 
         .has-icon {
-          @include gridSpriter('../images/icons/generic.svg', 5, 2, $defs);
+          @include GridSpriter('../images/icons/generic.svg', 5, 2, $defs);
         }
       }
 
@@ -48,20 +48,20 @@ $defs: (1: 'facebook', 3: 'instagram', 7: 'github');
         }
 
         .has-icon:not(.bfr):not(.aft)[data-icon=facebook],
-        .has-icon.bfr[data-icon=facebook]::before,
-        .has-icon.aft[data-icon=facebook]::after {
+        .has-icon.bfr::before[data-icon=facebook],
+        .has-icon.aft::after[data-icon=facebook] {
           mask-position: 25% 0%;
         }
 
         .has-icon:not(.bfr):not(.aft)[data-icon=instagram],
-        .has-icon.bfr[data-icon=instagram]::before,
-        .has-icon.aft[data-icon=instagram]::after {
+        .has-icon.bfr::before[data-icon=instagram],
+        .has-icon.aft::after[data-icon=instagram] {
           mask-position: 75% 0%;
         }
 
         .has-icon:not(.bfr):not(.aft)[data-icon=github],
-        .has-icon.bfr[data-icon=github]::before,
-        .has-icon.aft[data-icon=github]::after {
+        .has-icon.bfr::before[data-icon=github],
+        .has-icon.aft::after[data-icon=github] {
           mask-position: 50% 100%;
         }
       }
@@ -75,7 +75,7 @@ $defs: (1: 'facebook', 3: 'instagram', 7: 'github');
       @include output {
 
         .has-icon {
-          @include gridSpriter('../images/icons/generic.svg', 3, 1);
+          @include GridSpriter('../images/icons/generic.svg', 3, 1);
         }
       }
 
@@ -89,20 +89,20 @@ $defs: (1: 'facebook', 3: 'instagram', 7: 'github');
         }
 
         .has-icon:not(.bfr):not(.aft)[data-icon="0"],
-        .has-icon.bfr[data-icon="0"]::before,
-        .has-icon.aft[data-icon="0"]::after {
+        .has-icon.bfr::before[data-icon="0"],
+        .has-icon.aft::after[data-icon="0"] {
           mask-position: 0% 0;
         }
 
         .has-icon:not(.bfr):not(.aft)[data-icon="1"],
-        .has-icon.bfr[data-icon="1"]::before,
-        .has-icon.aft[data-icon="1"]::after {
+        .has-icon.bfr::before[data-icon="1"],
+        .has-icon.aft::after[data-icon="1"] {
           mask-position: 50% 0;
         }
 
         .has-icon:not(.bfr):not(.aft)[data-icon="2"],
-        .has-icon.bfr[data-icon="2"]::before,
-        .has-icon.aft[data-icon="2"]::after {
+        .has-icon.bfr::before[data-icon="2"],
+        .has-icon.aft::after[data-icon="2"] {
           mask-position: 100% 0;
         }
       }
