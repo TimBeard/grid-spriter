@@ -1,8 +1,8 @@
 {
   "name": "grid-spriter",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "A mixin to help using svg sprites",
-  "main": "src/grid-spriter.scss",
+  "main": "src/_grid-spriter.scss",
   "repository": "https://github.com/TimBeard/grid-spriter.git",
   "author": "Tim Beard",
   "license": "MIT",

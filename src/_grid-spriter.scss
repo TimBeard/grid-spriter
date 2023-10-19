@@ -1,3 +1,6 @@
+// Available modes. Serves as default when no $modes param is provided.
+$availableModes: ('is', 'prepend', 'append');
+
 // Helper function to compute relative position of a given cell on any axis
 @function onAxis($l, $x) {
   @return if($l > 1, (calc(1 / ($l - 1)) * $x) * 100%, 0);
@@ -12,30 +15,42 @@
   @return $x $y;
 }
 
-// Main mixin that will output the main class and all icon subclasses
-@mixin GridSpriter($src, $col, $row, $def: null, $mode: 'mask') {
-
-  @if $mode != 'mask' and $mode != 'background' {
-    @warn 'GridSpriter mode is set to #{$mode}. Should be either "mask" or "background". Unexpected behavior could occur.';
-  }
+@mixin GridSpriter($src, $set, $col, $row, $def: null, $modes: $availableModes, $type: 'mask') {
 
   $relWidth: $col * 100%;
   $nbrCells: $col * $row;
 
-  &:not(.bfr):not(.aft),
-  &.bfr::before,
-  &.aft::after {
-    #{$mode}-image: url($src);
-    #{$mode}-size: $relWidth auto;
+  %#{$set}Def {
+    #{$type}-image: url($src);
+    #{$type}-size: $relWidth auto;
+  }
 
-    @for $key from 0 through $nbrCells - 1 {
+  @for $key from 0 through $nbrCells - 1 {
 
-      @if $def == null or map-has-key($def, $key) {
+    @if $def == null or map-has-key($def, $key) {
 
-        $val: if($def != null, map-get($def, $key), $key);
+      $val: if($def != null, map-get($def, $key), $key);
+      $position: inGrid($key, $col, $row);
 
-        &[data-icon="#{$val}"] {
-          #{$mode}-position: inGrid($key, $col, $row);
+      %#{$set}position#{$key} {
+        #{$type}-position: $position;
+      }
+
+      @each $mode in $modes {
+
+        @if index($availableModes, $mode) == null {
+          @error 'GridSpriter mode is set to #{$mode}. Should be either "is", "prepend" or "append".';
+        }
+
+        $className: '.#{$mode}-#{$set}-#{$val}-icon-#{$type}';
+
+        @if $mode != 'is' {
+          $className: $className + if($mode == 'prepend', '::before', '::after');
+        }
+
+        #{$className} {
+          @extend %#{$set}Def;
+          @extend %#{$set}position#{$key};
         }
       }
     }

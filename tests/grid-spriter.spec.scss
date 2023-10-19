@@ -1,7 +1,7 @@
 @import 'true';
 @import '../src/grid-spriter';
 
-$defs: (1: 'facebook', 3: 'instagram', 7: 'github');
+$defs: (1: 'toto', 3: 'tata', 7: 'titi');
 
 @include describe('onAxis()') {
 
@@ -32,36 +32,39 @@ $defs: (1: 'facebook', 3: 'instagram', 7: 'github');
     @include assert {
 
       @include output {
-
-        .has-icon {
-          @include GridSpriter('../images/icons/generic.svg', 5, 2, $defs);
-        }
+        @include GridSpriter('../images/icons/foo.svg', 'foo', 5, 2, $defs);
       }
 
       @include expect {
 
-        .has-icon:not(.bfr):not(.aft),
-        .has-icon.bfr::before,
-        .has-icon.aft::after {
-          mask-image: url("../images/icons/generic.svg");
-          mask-size : 500% auto;
+        .append-foo-titi-icon-mask::after,
+        .prepend-foo-titi-icon-mask::before,
+        .is-foo-titi-icon-mask,
+        .append-foo-tata-icon-mask::after,
+        .prepend-foo-tata-icon-mask::before,
+        .is-foo-tata-icon-mask,
+        .append-foo-toto-icon-mask::after,
+        .prepend-foo-toto-icon-mask::before,
+        .is-foo-toto-icon-mask {
+          mask-image: url("../images/icons/foo.svg");
+          mask-size: 500% auto;
         }
 
-        .has-icon:not(.bfr):not(.aft)[data-icon=facebook],
-        .has-icon.bfr::before[data-icon=facebook],
-        .has-icon.aft::after[data-icon=facebook] {
+        .append-foo-toto-icon-mask::after,
+        .prepend-foo-toto-icon-mask::before,
+        .is-foo-toto-icon-mask {
           mask-position: 25% 0%;
         }
 
-        .has-icon:not(.bfr):not(.aft)[data-icon=instagram],
-        .has-icon.bfr::before[data-icon=instagram],
-        .has-icon.aft::after[data-icon=instagram] {
+        .append-foo-tata-icon-mask::after,
+        .prepend-foo-tata-icon-mask::before,
+        .is-foo-tata-icon-mask {
           mask-position: 75% 0%;
         }
 
-        .has-icon:not(.bfr):not(.aft)[data-icon=github],
-        .has-icon.bfr::before[data-icon=github],
-        .has-icon.aft::after[data-icon=github] {
+        .append-foo-titi-icon-mask::after,
+        .prepend-foo-titi-icon-mask::before,
+        .is-foo-titi-icon-mask {
           mask-position: 50% 100%;
         }
       }
@@ -73,36 +76,39 @@ $defs: (1: 'facebook', 3: 'instagram', 7: 'github');
     @include assert {
 
       @include output {
-
-        .has-icon {
-          @include GridSpriter('../images/icons/generic.svg', 3, 1);
-        }
+        @include GridSpriter('../images/icons/bar.svg', 'bar', 3, 1);
       }
 
       @include expect {
 
-        .has-icon:not(.bfr):not(.aft),
-        .has-icon.bfr::before,
-        .has-icon.aft::after {
-          mask-image: url("../images/icons/generic.svg");
-          mask-size : 300% auto;
+        .append-bar-2-icon-mask::after,
+        .prepend-bar-2-icon-mask::before,
+        .is-bar-2-icon-mask,
+        .append-bar-1-icon-mask::after,
+        .prepend-bar-1-icon-mask::before,
+        .is-bar-1-icon-mask,
+        .append-bar-0-icon-mask::after,
+        .prepend-bar-0-icon-mask::before,
+        .is-bar-0-icon-mask {
+          mask-image: url("../images/icons/bar.svg");
+          mask-size: 300% auto;
         }
 
-        .has-icon:not(.bfr):not(.aft)[data-icon="0"],
-        .has-icon.bfr::before[data-icon="0"],
-        .has-icon.aft::after[data-icon="0"] {
+        .append-bar-0-icon-mask::after,
+        .prepend-bar-0-icon-mask::before,
+        .is-bar-0-icon-mask {
           mask-position: 0% 0;
         }
 
-        .has-icon:not(.bfr):not(.aft)[data-icon="1"],
-        .has-icon.bfr::before[data-icon="1"],
-        .has-icon.aft::after[data-icon="1"] {
+        .append-bar-1-icon-mask::after,
+        .prepend-bar-1-icon-mask::before,
+        .is-bar-1-icon-mask {
           mask-position: 50% 0;
         }
 
-        .has-icon:not(.bfr):not(.aft)[data-icon="2"],
-        .has-icon.bfr::before[data-icon="2"],
-        .has-icon.aft::after[data-icon="2"] {
+        .append-bar-2-icon-mask::after,
+        .prepend-bar-2-icon-mask::before,
+        .is-bar-2-icon-mask {
           mask-position: 100% 0;
         }
       }
