@@ -1,9 +1,11 @@
+@use 'sass:list';
+
 // Available modes. Serves as default when no $modes param is provided.
 $availableModes: ('is', 'prepend', 'append');
 
 // Helper function to compute relative position of a given cell on any axis
 @function onAxis($l, $x) {
-  @return if($l > 1, (calc(1 / ($l - 1)) * $x) * 100%, 0);
+  @return if($l > 1, (calc(1 / ($l - 1)) * $x) * 100, 0);
 }
 
 // Helper function to compute relative coordinates of a given cell within a grid
@@ -20,7 +22,7 @@ $availableModes: ('is', 'prepend', 'append');
   $relWidth: $col * 100%;
   $nbrCells: $col * $row;
 
-  %#{$set}Def {
+  %bgDef-#{$set} {
     #{$type}-image: url($src);
     #{$type}-size: $relWidth auto;
   }
@@ -32,8 +34,11 @@ $availableModes: ('is', 'prepend', 'append');
       $val: if($def != null, map-get($def, $key), $key);
       $position: inGrid($key, $col, $row);
 
-      %#{$set}position#{$key} {
-        #{$type}-position: $position;
+      $x: list.nth($position, 1);
+      $y: list.nth($position, 2);
+
+      %position-#{$x}-#{$y} {
+        #{$type}-position: if($x > 0, $x * 1%, $x) if($y > 0, $y * 1%, $y);
       }
 
       @each $mode in $modes {
@@ -42,15 +47,19 @@ $availableModes: ('is', 'prepend', 'append');
           @error 'GridSpriter mode is set to #{$mode}. Should be either "is", "prepend" or "append".';
         }
 
-        $className: '.#{$mode}-#{$set}-#{$val}-icon-#{$type}';
+        $className: '.#{$mode}-#{$set}-#{$val}-icon';
+
+        @if $type == 'mask' {
+          $className: $className + '-' + $type;
+        }
 
         @if $mode != 'is' {
           $className: $className + if($mode == 'prepend', '::before', '::after');
         }
 
         #{$className} {
-          @extend %#{$set}Def;
-          @extend %#{$set}position#{$key};
+          @extend %bgDef-#{$set};
+          @extend %position-#{list.nth($position, 1)}-#{list.nth($position, 2)};
         }
       }
     }

@@ -6,22 +6,22 @@ $defs: (1: 'toto', 3: 'tata', 7: 'titi');
 @include describe('onAxis()') {
 
   @include it('Should output 0% when searching for the frist cell of any axis') {
-    @include assert-equal(onAxis(1337, 0), 0%)
+    @include assert-equal(onAxis(1337, 0), 0)
   }
 
   @include it('Should output 25% when seearching for the second cell of a 5 cells axis') {
-    @include assert-equal(onAxis(5, 1), 25%)
+    @include assert-equal(onAxis(5, 1), 25)
   }
 }
 
 @include describe('inGrid()') {
 
   @include it('Should output 0% 0% when searching for the first cell of any grid') {
-    @include assert-equal(inGrid(0, 1024, 768), 0% 0%)
+    @include assert-equal(inGrid(0, 1024, 768), 0 0)
   }
 
   @include it('Should output 25% 100% when searching for the seventh cell of a 5*2 grid') {
-    @include assert-equal(inGrid(6, 5, 2), 25% 100%)
+    @include assert-equal(inGrid(6, 5, 2), 25 100)
   }
 }
 
@@ -53,13 +53,13 @@ $defs: (1: 'toto', 3: 'tata', 7: 'titi');
         .append-foo-toto-icon-mask::after,
         .prepend-foo-toto-icon-mask::before,
         .is-foo-toto-icon-mask {
-          mask-position: 25% 0%;
+          mask-position: 25% 0;
         }
 
         .append-foo-tata-icon-mask::after,
         .prepend-foo-tata-icon-mask::before,
         .is-foo-tata-icon-mask {
-          mask-position: 75% 0%;
+          mask-position: 75% 0;
         }
 
         .append-foo-titi-icon-mask::after,
@@ -97,7 +97,7 @@ $defs: (1: 'toto', 3: 'tata', 7: 'titi');
         .append-bar-0-icon-mask::after,
         .prepend-bar-0-icon-mask::before,
         .is-bar-0-icon-mask {
-          mask-position: 0% 0;
+          mask-position: 0 0;
         }
 
         .append-bar-1-icon-mask::after,
