@@ -18,14 +18,14 @@
 @mixin GridSpriter($name, $col, $row, $params) {
 
   // Available modes. Serves as default when no $modes param is provided.
-  $availableModes: ['is', 'prepend', 'append'];
+  $availableModes: ('is', 'prepend', 'append');
 
   $config: map.merge(
     (
       path: '/assets/images/sprites/',
       format: 'svg',
       def: null,
-      modes: ['is', 'prepend', 'append'],
+      modes: ('is', 'prepend', 'append'),
       type: 'mask'
     ),
     $params
@@ -55,7 +55,7 @@
       $x: list.nth($position, 1);
       $y: list.nth($position, 2);
 
-      %position-#{$x}-#{$y} {
+      %position-#{$col}-#{$row}-#{$key} {
         #{$type}-position: if($x > 0, $x * 1%, $x) if($y > 0, $y * 1%, $y);
       }
 
@@ -79,7 +79,7 @@
 
         #{$className} {
           @extend %bgDef-#{$name};
-          @extend %position-#{list.nth($position, 1)}-#{list.nth($position, 2)};
+          @extend %position-#{$col}-#{$row}-#{$key};
         }
       }
     }
