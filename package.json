@@ -1,25 +1,25 @@
 {
-  "name": "grid-spriter",
-  "version": "1.3.5",
-  "description": "A mixin to help using svg sprites",
-  "main": "src/_grid-spriter.scss",
-  "repository": "https://github.com/TimBeard/grid-spriter.git",
-  "author": "Tim Beard",
-  "license": "MIT",
-  "scripts": {
-    "test": "jest"
-  },
-  "keywords": [
-    "svg",
-    "sprite",
-    "scss",
-    "mixin"
-  ],
-  "bugs": {
-    "url": "https://github.com/TimBeard/grid-spriter/issues"
-  },
-  "homepage": "https://github.com/TimBeard/grid-spriter#readme",
-  "devDependencies": {
-    "sass": "^1.69.5"
-  }
+    "name": "@timbeard/grid-spriter",
+    "version": "2.0.0-beata.1",
+    "description": "A mixin to help using svg sprites",
+    "main": "src/_sprite.scss",
+    "repository": "https://github.com/TimBeard/grid-spriter.git",
+    "author": "Tim Beard",
+    "license": "MIT",
+    "scripts": {
+        "test": "jest"
+    },
+    "keywords": [
+        "svg",
+        "sprite",
+        "scss",
+        "mixin"
+    ],
+    "bugs": {
+        "url": "https://github.com/TimBeard/grid-spriter/issues"
+    },
+    "homepage": "https://github.com/TimBeard/grid-spriter",
+    "devDependencies": {
+        "sass": "^1.69.5"
+    }
 }

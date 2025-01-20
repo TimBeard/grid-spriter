@@ -16,7 +16,7 @@
     @return $x $y;
 }
 
-@mixin GridSpriter($name, $col, $row, $params) {
+@mixin sprite($name, $col, $row, $params) {
 
     // Available modes. Serves as default when no $modes param is provided.
     $availableModes: (

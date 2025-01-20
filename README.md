@@ -3,7 +3,7 @@ A mixin to help using svg sprites.
 
 # Installation
 ```shell
-npm i -D grid-spriter
+npm i -D @timbeard/grid-spriter
 ```
 
 # Constructor
@@ -38,7 +38,7 @@ $twitchParams: (
   modes: ['is', 'append']
 );
 
-@include GridSpriter('twitch', 3, 2, $twitchParams);
+@include grid-spriter.sprite('twitch', 3, 2, $twitchParams);
 
 // The resulting classes would look like this
 .is-twitch-follow-icon-mask {}
@@ -54,29 +54,29 @@ The default path for images is `/assets/images/sprites/`, the default format is 
 In our example, the image must be located at `/assets/images/sprites/twitch.svg`.
 
 ```scss
-@import 'grid-spriter';
+@use '@timbeard/grid-spriter';
 
 $twitchParams: (
-  def: (0: 'follow', 1: 'sub'),
-  modes: ['is', 'prepend']
+    def: (0: 'follow', 1: 'sub'),
+    modes: ['is', 'prepend']
 );
 
-@include GridSpriter('twitch', 3, 2, $twitchParams);
+@include grid-spriter.sprite('twitch', 3, 2, $twitchParams);
 
 // Twitch follow icon as background image
 // The class can be anything as long as its target element also has a GridSpriter generated class
 .is-twitch-follow-icon {
-  width: 64px;
-  height: 64px;
+    width: 64px;
+    height: 64px;
 }
 
 // Twitch sub icon as a before pseudo-element with mask image
 .prepend-twitch-sub-icon-mask::before {
-  content: '';
-  display: inline-block;
-  width: 64px;
-  height: 64px;
-  background-color: #6441A5;
+    content: '';
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    background-color: #6441A5;
 }
 ```
 
