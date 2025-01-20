@@ -8,7 +8,7 @@ npm i -D @timbeard/grid-spriter
 
 # Constructor
 ```scss
-@include GridSpriter($name, $col, $row, $params);
+@include grid-spriter.sprite($name, $col, $row, $params);
 ```
 
 | Parameter | Type   | Is required | Default | Description                               |
