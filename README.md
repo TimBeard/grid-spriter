@@ -3,7 +3,7 @@ A mixin to help using svg sprites.
 
 # Installation
 ```shell
-yarn add grid-spriter
+npm i -D grid-spriter
 ```
 
 # Constructor
@@ -34,7 +34,7 @@ yarn add grid-spriter
 
 // For example if you used the mixin like so
 $twitchParams: (
-  def: (1: 'follow'), 
+  def: (1: 'follow'),
   modes: ['is', 'append']
 );
 
@@ -51,7 +51,7 @@ Any pseudo-element containing a sprite image must have a set `content`. An empty
 Any element or pseudo-element containing a sprite image as a mask must have a set `background` or `background-color`.
 
 The default path for images is `/assets/images/sprites/`, the default format is `svg`.
-In our example, the image must be located at `/assets/images/sprites/twitch.svg`. 
+In our example, the image must be located at `/assets/images/sprites/twitch.svg`.
 
 ```scss
 @import 'grid-spriter';
@@ -65,7 +65,7 @@ $twitchParams: (
 
 // Twitch follow icon as background image
 // The class can be anything as long as its target element also has a GridSpriter generated class
-.is-twitch-follow-icon { 
+.is-twitch-follow-icon {
   width: 64px;
   height: 64px;
 }

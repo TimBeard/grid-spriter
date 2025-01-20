@@ -1,87 +1,88 @@
-@use 'sass:map';
 @use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
 
 // Helper function to compute relative position of a given cell on any axis
 @function onAxis($l, $x) {
-  @return if($l > 1, (calc(1 / ($l - 1)) * $x) * 100, 0);
+    @return if($l > 1, (calc(1 / ($l - 1)) * $x) * 100, 0);
 }
 
 // Helper function to compute relative coordinates of a given cell within a grid
 @function inGrid($i, $w, $h) {
 
-  $x: onAxis($w, $i % $w);
-  $y: onAxis($h, floor(calc($i / $w)));
+    $x: onAxis($w, $i % $w);
+    $y: onAxis($h, math.floor(calc($i / $w)));
 
-  @return $x $y;
+    @return $x $y;
 }
 
 @mixin GridSpriter($name, $col, $row, $params) {
 
-  // Available modes. Serves as default when no $modes param is provided.
-  $availableModes: ('is', 'prepend', 'append');
+    // Available modes. Serves as default when no $modes param is provided.
+    $availableModes: (
+        'is',
+        'prepend',
+        'append'
+    );
 
-  $config: map.merge(
-    (
-      path: '/assets/images/sprites/',
-      format: 'svg',
-      def: null,
-      modes: ('is', 'prepend', 'append'),
-      type: 'mask'
-    ),
-    $params
-  );
+    $config: map.merge((path: '/assets/images/sprites/',
+        format: 'svg',
+        def: null,
+        modes: ('is', 'prepend', 'append'),
+        type: 'mask'
+    ), $params);
 
-  $src: map.get($config, path) + $name + '.' + map.get($config, format);
+    $src: map.get($config, path) + $name + '.' + map.get($config, format);
 
-  $relWidth: $col * 100%;
-  $nbrCells: $col * $row;
+    $relWidth: $col * 100%;
+    $nbrCells: $col * $row;
 
-  $type: map.get($config, type);
+    $type: map.get($config, type);
 
-  %bgDef-#{$name} {
-    #{$type}-image: url($src);
-    #{$type}-size: $relWidth auto;
-  }
-
-  @for $key from 0 through $nbrCells - 1 {
-
-    $def: map.get($config, def);
-
-    @if $def == null or map-has-key($def, $key) {
-
-      $val: if($def != null, map.get($def, $key), $key);
-      $position: inGrid($key, $col, $row);
-
-      $x: list.nth($position, 1);
-      $y: list.nth($position, 2);
-
-      %position-#{$col}-#{$row}-#{$key} {
-        #{$type}-position: if($x > 0, $x * 1%, $x) if($y > 0, $y * 1%, $y);
-      }
-
-      $modes: map.get($config, modes);
-
-      @each $mode in $modes {
-
-        @if index($availableModes, $mode) == null {
-          @error 'GridSpriter mode is set to #{$mode}. Should be either "is", "prepend" or "append".';
-        }
-
-        $className: '.#{$mode}-#{$name}-#{$val}-icon';
-
-        @if $type == 'mask' {
-          $className: $className + '-' + $type;
-        }
-
-        @if $mode != 'is' {
-          $className: $className + if($mode == 'prepend', '::before', '::after');
-        }
-
-        #{$className} {
-          @extend %bgDef-#{$name};
-          @extend %position-#{$col}-#{$row}-#{$key};
-        }
-      }
+    %bgDef-#{$name} {
+        #{$type}-image: url($src);
+        #{$type}-size: $relWidth auto;
     }
-  }
+
+    @for $key from 0 through $nbrCells - 1 {
+
+        $def: map.get($config, def);
+
+        @if $def ==null or map.has-key($def, $key) {
+
+            $val: if($def !=null, map.get($def, $key), $key);
+            $position: inGrid($key, $col, $row);
+
+            $x: list.nth($position, 1);
+            $y: list.nth($position, 2);
+
+            %position-#{$col}-#{$row}-#{$key} {
+                #{$type}-position: if($x > 0, $x * 1%, $x) if($y > 0, $y * 1%, $y);
+            }
+
+            $modes: map.get($config, modes);
+
+            @each $mode in $modes {
+
+                @if list.index($availableModes, $mode)==null {
+                    @error 'GridSpriter mode is set to #{$mode}. Should be either "is", "prepend" or "append".';
+                }
+
+                $className: '.#{$mode}-#{$name}-#{$val}-icon';
+
+                @if $type =='mask' {
+                    $className: $className + '-' + $type;
+                }
+
+                @if $mode !='is' {
+                    $className: $className + if($mode =='prepend', '::before', '::after');
+                }
+
+                #{$className} {
+                    @extend %bgDef-#{$name};
+                    @extend %position-#{$col}-#{$row}-#{$key};
+                }
+            }
+        }
+    }
 }
